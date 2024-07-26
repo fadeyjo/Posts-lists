@@ -1,0 +1,38 @@
+.post {
+    border: 2px solid gray;
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+span {
+    font-size: 20px;
+}
+
+.button_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.redact_post_form {
+    display: none;
+}
+
+.redact_post_form.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 250px;
+    border: 2px solid gray;
+
+}
+
+.container {
+    margin: 20px 0;
+}

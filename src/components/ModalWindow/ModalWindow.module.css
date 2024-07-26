@@ -1,0 +1,26 @@
+.modal {
+    display: none;
+}
+
+.modal.open {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    padding: 30px 60px 60px 60px;
+    border-radius: 35px;
+    background-color: white;
+}
+
+.close {
+    display: flex;
+    justify-content: end;
+}

@@ -1,0 +1,10 @@
+.post_list {
+    display: flex;
+    flex-direction: column;
+    margin: 10%;
+}
+
+.empty_posts_list {
+    text-align: center;
+    margin-top: 50px;
+}
