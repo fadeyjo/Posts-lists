@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import PostList from "./components/PostList/PostList.jsx";
 import CreatePostForm from "./components/CreatePostForm/CreatePostForm.jsx";
 import ModalWindow from "./components/ModalWindow/ModalWindow.jsx";
 import Button from "./components/Button/Button.jsx";
+import SortTools from "./components/SortTools/SortTools.jsx";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -17,6 +18,12 @@ function App() {
       body: "Learning TypeScript"
     },
   ])
+
+  const [opened, setOpened] = useState(false)
+
+  const [reversed, setReversed] = useState(false)
+
+  const [typeSort, setTypeSort] = useState("By id")
 
   const newPostId = useMemo(() => {
     let exist = false
@@ -48,7 +55,24 @@ function App() {
     setPosts([...posts.filter((post) => post.id !== newPost.id), newPost])
   }
 
-  const [opened, setOpened] = useState(false)
+  const sortedPosts = useMemo(() => {
+    if (typeSort === "By id") {
+      if (reversed) {
+        return [...posts].sort((a, b) => b.id - a.id)
+      }
+      return [...posts].sort((a, b) => a.id - b.id)
+    }
+    if (typeSort === "By title") {
+      if (reversed) {
+        return ([...posts].sort((a, b) => a.title.localeCompare(b.title))).reverse() 
+      }
+      return [...posts].sort((a, b) => a.title.localeCompare(b.title))
+    }
+    if (reversed) {
+      return ([...posts].sort((a, b) => a.body.localeCompare(b.body))).reverse() 
+    }
+    return [...posts].sort((a, b) => a.body.localeCompare(b.body))
+  }, [posts, typeSort, reversed])
 
   return (
     <div>
@@ -60,7 +84,8 @@ function App() {
       }}>
         <Button onClick={() => setOpened(true)}>Create post</Button>
       </div>
-      <PostList posts={posts} deletePost={deletePost} editPost={editPost} />
+      <SortTools setReversed={setReversed} setTypeSort={setTypeSort} />
+      <PostList posts={sortedPosts} deletePost={deletePost} editPost={editPost} />
       <ModalWindow opened={opened} setOpened={setOpened}><CreatePostForm createPost={createPost} /></ModalWindow>
     </div>
   );
